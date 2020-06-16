@@ -3,7 +3,20 @@ class User {
 
   String _email, _password, _tokenID;
 
-  User(this._email, this._password, this._tokenID);
+  User();
+
+  User.loginData(String email, String password) {
+
+    this._email = email;
+    this._password = password;
+  }
+
+  User.fromResponse(String email, String password, String tokenID) {
+
+    this._email = email;
+    this._password = password;
+    this._tokenID = tokenID;
+  }
 
   get tokenID => _tokenID;
 
@@ -17,7 +30,7 @@ class User {
     _password = value;
   }
 
-  String get email => _email;
+  get email => _email;
 
   set email(String value) {
     _email = value;
