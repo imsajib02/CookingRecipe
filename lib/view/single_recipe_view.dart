@@ -296,7 +296,7 @@ class _SingleRecipeViewState extends State<SingleRecipeView> {
 
               Flexible(
                 child: Text(widget._recipe.ingredientList[index].ingredientName,
-                  textAlign: TextAlign.start,
+                  textAlign: TextAlign.justify,
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
@@ -310,10 +310,10 @@ class _SingleRecipeViewState extends State<SingleRecipeView> {
                   padding: EdgeInsets.only(top: 10, bottom: 3, left: 15),
                   child: Text("▪ Description:  " + (widget._recipe.ingredientList[index].description == null ?
                     "- - -" : widget._recipe.ingredientList[index].description),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
-                      wordSpacing: 1,
-                      height: 1.3,
+                      wordSpacing: .8,
+                      height: 1.2,
                       color: Colors.black87,
                       fontSize: 2 * SizeConfig.textSizeMultiplier,
                     ),
@@ -326,10 +326,10 @@ class _SingleRecipeViewState extends State<SingleRecipeView> {
                   padding: EdgeInsets.only(top: 2, bottom: 3, left: 15),
                   child: Text("▪ Preparation:  " + (widget._recipe.ingredientList[index].preparation == null ?
                   "- - -" : widget._recipe.ingredientList[index].preparation),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
-                      wordSpacing: 1,
-                      height: 1.3,
+                      wordSpacing: .8,
+                      height: 1.2,
                       color: Colors.black87,
                       fontSize: 2 * SizeConfig.textSizeMultiplier,
                     ),
@@ -343,7 +343,7 @@ class _SingleRecipeViewState extends State<SingleRecipeView> {
                   child: Text("▪ Unit:  " + (int.parse(widget._recipe.ingredientList[index].displayQuantity) == 1 ?
                     widget._recipe.ingredientList[index].displayQuantity + "  " + widget._recipe.ingredientList[index].unit.unitName :
                     widget._recipe.ingredientList[index].displayQuantity + "  " + widget._recipe.ingredientList[index].unit.namePlural),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.justify,
                     style: TextStyle(color: Colors.black87, fontSize: 2 * SizeConfig.textSizeMultiplier),
                   ),
                 ),
@@ -391,10 +391,10 @@ class _SingleRecipeViewState extends State<SingleRecipeView> {
                   child: Container(
                     padding: EdgeInsets.only(top: 10),
                     child: Text("▪  " + widget._recipe.directionList[index].stepText,
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
-                        wordSpacing: 1,
-                        height: 1.5,
+                        wordSpacing: .8,
+                        height: 1.3,
                         color: Colors.black87,
                         fontSize: 2 * SizeConfig.textSizeMultiplier,
                       ),
