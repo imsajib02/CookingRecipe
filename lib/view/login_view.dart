@@ -43,8 +43,8 @@ class _LoginViewState extends State<LoginView> implements View{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+//      resizeToAvoidBottomInset: false,
+//      resizeToAvoidBottomPadding: false,
       body: Builder(
         builder: (BuildContext context) {
 
@@ -87,85 +87,93 @@ class _LoginViewState extends State<LoginView> implements View{
                         elevation: 10,
                         child: Container(
                           padding: EdgeInsets.all(20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
+                          margin: EdgeInsets.only(left: 10, right: 10),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
 
-                              Flexible(
-                                child: Container(
-                                  height: 6.25 * SizeConfig.heightSizeMultiplier,
-                                  child: TextField(
-                                    controller: _emailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                      labelText: "Email",
-                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                                SizedBox(height: 5 * SizeConfig.heightSizeMultiplier,),
+
+                                Flexible(
+                                  child: Container(
+                                    height: 6.25 * SizeConfig.heightSizeMultiplier,
+                                    child: TextField(
+                                      controller: _emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      decoration: InputDecoration(
+                                        labelText: "Email",
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              SizedBox(height: 2.5 * SizeConfig.heightSizeMultiplier,),
+                                SizedBox(height: 2.5 * SizeConfig.heightSizeMultiplier,),
 
-                              Flexible(
-                                child: Container(
-                                  height: 8.75 * SizeConfig.heightSizeMultiplier,
-                                  child: TextField(
-                                    controller: _passwordController,
-                                    obscureText: passwordVisible,
-                                    keyboardType: TextInputType.text,
-                                    maxLength: 15,
-                                    decoration: InputDecoration(
-                                      suffixIcon: GestureDetector(
-                                        child: Icon(icon),
-                                        onTap: () {
+                                Flexible(
+                                  child: Container(
+                                    height: 8.75 * SizeConfig.heightSizeMultiplier,
+                                    child: TextField(
+                                      controller: _passwordController,
+                                      obscureText: passwordVisible,
+                                      keyboardType: TextInputType.text,
+                                      maxLength: 15,
+                                      decoration: InputDecoration(
+                                        suffixIcon: GestureDetector(
+                                          child: Icon(icon),
+                                          onTap: () {
 
-                                          setState(() {
-                                            passwordVisible = !passwordVisible;
-                                            passwordVisible ? icon = Icons.visibility : icon = Icons.visibility_off;
-                                          });
+                                            setState(() {
+                                              passwordVisible = !passwordVisible;
+                                              passwordVisible ? icon = Icons.visibility : icon = Icons.visibility_off;
+                                            });
+                                          },
+                                        ),
+                                        labelText: "Password",
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                SizedBox(height: 2.5 * SizeConfig.heightSizeMultiplier,),
+
+                                Flexible(
+                                  child: BounceAnimation(
+                                    childWidget: Container(
+                                      width: 77 * SizeConfig.widthSizeMultiplier,
+                                      child: RaisedButton(
+                                        padding: EdgeInsets.all(10),
+                                        elevation: 5,
+                                        onPressed: () {
+
+                                          BounceState.scaleAnimationController.forward();
+
+                                          user.email = _emailController.text;
+                                          user.password = _passwordController.text;
+
+                                          _presenter.validateInput(context, user);
                                         },
-                                      ),
-                                      labelText: "Password",
-                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(height: 2.5 * SizeConfig.heightSizeMultiplier,),
-
-                              Flexible(
-                                child: BounceAnimation(
-                                  childWidget: Container(
-                                    width: 77 * SizeConfig.widthSizeMultiplier,
-                                    child: RaisedButton(
-                                      padding: EdgeInsets.all(10),
-                                      elevation: 5,
-                                      onPressed: () {
-
-                                        BounceState.scaleAnimationController.forward();
-
-                                        user.email = _emailController.text;
-                                        user.password = _passwordController.text;
-
-                                        _presenter.validateInput(context, user);
-                                      },
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: new BorderRadius.circular(5),
-                                      ),
-                                      color: Colors.lightBlueAccent,
-                                      textColor: Colors.white,
-                                      child: Text("LOGIN", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 2.25 * SizeConfig.textSizeMultiplier,
-                                      ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: new BorderRadius.circular(5),
+                                        ),
+                                        color: Colors.lightBlueAccent,
+                                        textColor: Colors.white,
+                                        child: Text("LOGIN", style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 2.25 * SizeConfig.textSizeMultiplier,
+                                        ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+
+                                SizedBox(height: 3.75 * SizeConfig.heightSizeMultiplier,),
+                              ],
+                            ),
                           ),
                         ),
                       ),
