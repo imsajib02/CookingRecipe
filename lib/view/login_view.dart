@@ -6,6 +6,8 @@ import 'package:cooking_recipe/resources/images.dart';
 import 'package:cooking_recipe/resources/strings.dart';
 import 'package:cooking_recipe/utils/bounce_animation.dart';
 import 'package:cooking_recipe/utils/size_config.dart';
+import 'package:cooking_recipe/utils/variables.dart';
+import 'package:cooking_recipe/view/homepage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
@@ -41,6 +43,8 @@ class _LoginViewState extends State<LoginView> implements View{
   Widget build(BuildContext context) {
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
       body: Builder(
         builder: (BuildContext context) {
 
@@ -53,10 +57,10 @@ class _LoginViewState extends State<LoginView> implements View{
                 ),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
 
-                  Expanded(
+                  Flexible(
                     flex: 2,
                     child: Container(
                       alignment: Alignment.center,
@@ -72,7 +76,7 @@ class _LoginViewState extends State<LoginView> implements View{
                     ),
                   ),
 
-                  Expanded(
+                  Flexible(
                     flex: 3,
                     child: Container(
                       margin: EdgeInsets.only(left: 5, right: 5, bottom: 100),
@@ -176,21 +180,13 @@ class _LoginViewState extends State<LoginView> implements View{
     );
   }
 
-
-  @override
-  void dispose() {
-
-    super.dispose();
-    CheckConnectivity().stopChecking();
-  }
-
   @override
   void onEmpty(String message) {
 
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
+        gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.lightBlue,
         textColor: Colors.white,
@@ -220,6 +216,8 @@ class _LoginViewState extends State<LoginView> implements View{
       _emailController.clear();
       _passwordController.clear();
     });
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageView()));
   }
 
   @override
@@ -236,5 +234,15 @@ class _LoginViewState extends State<LoginView> implements View{
       radius: 10.0,
       backgroundColor: Colors.black,
     );
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+    CheckConnectivity().stopChecking();
+
+    Variables.isConnected = false;
+    Variables.hasInternet = false;
   }
 }

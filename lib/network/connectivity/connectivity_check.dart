@@ -42,7 +42,12 @@ class CheckConnectivity {
 
   stopChecking()
   {
-    connectionChecker.cancel();
-    internetAvailability.cancel();
+    try {
+      connectionChecker.cancel();
+      internetAvailability.cancel();
+    }
+    catch(error) {
+      //print(error);
+    }
   }
 }

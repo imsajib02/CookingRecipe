@@ -4,6 +4,7 @@ class Variables {
 
   static String baseUrl = "https://rcapp.utech.dev/api/";
   static String authURL = "auth/login";
+  static String recipeListURL = "recipes";
 
   static User currentUser = User();
 

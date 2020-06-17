@@ -61,19 +61,16 @@ class LoginPresenter implements Presenter{
 
           print(response.body);
 
-          //AuthResponseModel authResponseModel = json.decode(response.body);
+          AuthResponseModel authResponseModel = AuthResponseModel.fromJson(json.decode(response.body));
 
-          var jsonData = json.decode(response.body);
-          String response_msg = jsonData["response"];
+          if(authResponseModel.response == "success") {
 
-          if(response_msg == "success") {
-
-            String token = jsonData["result"]["token"];
-            Variables.currentUser = User.fromResponse(user.email.toString(), user.password.toString(), token);
+            Variables.currentUser = User.fromResponse(user.email.toString(),
+                user.password.toString(), authResponseModel.result.token);
 
             _view.onLoginSuccess();
           }
-          else if(response_msg == "error") {
+          else if(authResponseModel.response == "error") {
 
             _view.stopProgressDialog();
 
