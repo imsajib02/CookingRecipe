@@ -1,5 +1,6 @@
 import 'package:cooking_recipe/contract/homepage_contract.dart';
 import 'package:cooking_recipe/presenter/homepage_presenter.dart';
+import 'package:cooking_recipe/view/single_recipe_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cooking_recipe/utils/variables.dart';
 import 'package:cooking_recipe/utils/functions.dart';
@@ -33,7 +34,7 @@ class _HomePageViewState extends State<HomePageView> implements View {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.lightBlueAccent,),
+      appBar: AppBar(backgroundColor: Colors.lightBlueAccent, automaticallyImplyLeading: false,),
       body: Builder(
         builder: (BuildContext context) {
 
@@ -67,101 +68,111 @@ class _HomePageViewState extends State<HomePageView> implements View {
 
             return Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-              child: Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+              child: GestureDetector(
+                onTap: () {
 
-                    Flexible(
-                      child: Container(
-                        width: double.infinity,
-                        height: 30 * SizeConfig.heightSizeMultiplier,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(recipeList[index].imageURL, fit: BoxFit.contain,),
-                        ),
-                      ),
-                    ),
+                  Image recipeImage = Image.network(recipeList[index].imageURL);
+                  Image sourceImage = Image.network(recipeList[index].source.sourceImageURL);
 
-                    Flexible(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 15, bottom: 8, left: 12, right: 12),
-                        alignment: Alignment.centerLeft,
-                        child: Text(recipeList[index].recipeTitle,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 2 * SizeConfig.textSizeMultiplier,
-                            fontWeight: FontWeight.bold,
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                      SingleRecipeView(recipeList[index], recipeImage, sourceImage)));
+                },
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+
+                      Flexible(
+                        child: Container(
+                          width: double.infinity,
+                          height: 30 * SizeConfig.heightSizeMultiplier,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(recipeList[index].imageURL, fit: BoxFit.contain,),
                           ),
                         ),
                       ),
-                    ),
 
-                    Flexible(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 2, bottom: 3, left: 15, right: 12),
-                        alignment: Alignment.centerLeft,
-                        child: Text(recipeList[index].source.sourceName,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 1.65 * SizeConfig.textSizeMultiplier,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Flexible(
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-
-                            Flexible(
-                              flex: 1,
-                              child: Row(
-                                children: <Widget>[
-
-                                  Icon(Icons.access_time, size: 3.5 * SizeConfig.imageSizeMultiplier,),
-
-                                  SizedBox(width: 1.5 * SizeConfig.widthSizeMultiplier,),
-
-                                  Text((recipeList[index].totalTime / 60).abs() < 1.0 ?
-                                  (recipeList[index].totalTime <= 1 ? recipeList[index].totalTime.toString() + "  min" : recipeList[index].totalTime.toString() + "  mins") :
-                                  ((recipeList[index].totalTime / 60).abs() == 1.0 ? (recipeList[index].totalTime / 60).abs().toString() + "  hr" : (recipeList[index].totalTime / 60).abs().toString() + "  hrs"),
-                                    style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 1.5 * SizeConfig.textSizeMultiplier,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                      Flexible(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 15, bottom: 8, left: 12, right: 12),
+                          alignment: Alignment.centerLeft,
+                          child: Text(recipeList[index].recipeTitle,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 2 * SizeConfig.textSizeMultiplier,
+                              fontWeight: FontWeight.bold,
                             ),
+                          ),
+                        ),
+                      ),
 
-                            SizedBox(width: 3 * SizeConfig.widthSizeMultiplier,),
+                      Flexible(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 2, bottom: 3, left: 15, right: 12),
+                          alignment: Alignment.centerLeft,
+                          child: Text(recipeList[index].source.sourceName,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 1.65 * SizeConfig.textSizeMultiplier,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
 
-                            Flexible(
-                              flex: 2,
-                              child: Text(recipeList[index].servings <= 1 ?
-                              recipeList[index].servings.toString() + " person" :
-                              recipeList[index].servings.toString() + " persons",
-                                style: TextStyle(
-                                  color: Colors.black38,
-                                  fontSize: 1.5 * SizeConfig.textSizeMultiplier,
-                                  fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+
+                              Flexible(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+
+                                    Icon(Icons.access_time, size: 3.5 * SizeConfig.imageSizeMultiplier,),
+
+                                    SizedBox(width: 1.5 * SizeConfig.widthSizeMultiplier,),
+
+                                    Text((recipeList[index].totalTime / 60).abs() < 1.0 ?
+                                    (recipeList[index].totalTime <= 1 ? recipeList[index].totalTime.toString() + "  min" : recipeList[index].totalTime.toString() + "  mins") :
+                                    ((recipeList[index].totalTime / 60).abs() == 1.0 ? (recipeList[index].totalTime / 60).abs().toString() + "  hr" : (recipeList[index].totalTime / 60).abs().toString() + "  hrs"),
+                                      style: TextStyle(
+                                        color: Colors.black38,
+                                        fontSize: 1.5 * SizeConfig.textSizeMultiplier,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
+
+                              SizedBox(width: 3 * SizeConfig.widthSizeMultiplier,),
+
+                              Flexible(
+                                flex: 2,
+                                child: Text(recipeList[index].servings <= 1 ?
+                                recipeList[index].servings.toString() + " person" :
+                                recipeList[index].servings.toString() + " persons",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 1.5 * SizeConfig.textSizeMultiplier,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );
